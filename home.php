@@ -136,6 +136,14 @@
                   <a class="nav-link" href="learn.html">Learn</a>
               </li>
 
+              <li class="nav-item">
+                  <a class="nav-link" href="profile.html">Profile</a>
+              </li>
+
+              <li class="nav-item">
+                  <a class="nav-link" href="settings.html">Settings</a>
+              </li>
+
               <!-- Profile Dropdown with Icon -->
               <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
