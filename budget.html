@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minto - Budget Management</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Internal Styles for Budget Page */
+        .budget-section {
+            background-color: var(--light-gray);
+            padding: 40px 0; /* Reduced padding to reduce space above the heading */
+        }
+
+        .budget-section h2 {
+            color: var(--deep-green);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center; /* Center the heading */
+        }
+
+        .budget-section p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+            line-height: 1.6;
+            text-align: center; /* Center the paragraph */
+        }
+
+        .budget-summary {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .budget-summary h3 {
+            color: var(--deep-green);
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .budget-summary .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .budget-summary .summary-item label {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+        }
+
+        .budget-summary .summary-item span {
+            font-size: 1.1rem;
+            color: var(--deep-green);
+            font-weight: bold;
+        }
+
+        .budget-table {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .budget-table h2 {
+            color: var(--deep-green);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .budget-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .budget-table th, .budget-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid var(--dark-gray);
+        }
+
+        .budget-table th {
+            background-color: var(--deep-green);
+            color: white;
+        }
+
+        .budget-table .income-row {
+            background-color: #eaffd0; /* Light green for income */
+        }
+
+        .budget-table .expense-row {
+            background-color: #ffe6e6; /* Light red for expense */
+        }
+
+        .budget-table .update-btn, .budget-table .delete-btn {
+            background-color: var(--deep-green);
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .budget-table .update-btn:hover, .budget-table .delete-btn:hover {
+            background-color: var(--sage-green);
+        }
+
+        .budget-table .delete-btn {
+            background-color: #ff4d4d; /* Red for delete */
+        }
+
+        .budget-table .delete-btn:hover {
+            background-color: #ff1a1a; /* Darker red for hover */
+        }
+
+        .budget-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .budget-form h2 {
+            color: var(--deep-green);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .budget-form .form-group label {
+            color: var(--dark-gray);
+            font-weight: 500;
+        }
+
+        .budget-form .form-control {
+            border: 1px solid var(--dark-gray);
+            border-radius: 5px;
+        }
+
+        .budget-form .btn-primary {
+            background-color: var(--deep-green);
+            border-color: var(--deep-green);
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+        }
+
+        .budget-form .btn-primary:hover {
+            background-color: var(--sage-green);
+            border-color: var(--sage-green);
+        }
+
+        .info-box {
+            background-color: var(--sage-green);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .info-box p {
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        .info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-item i {
+            color: var(--deep-green);
+            font-size: 1.5rem;
+        }
+
+        .info-item p {
+            font-size: 1.1rem;
+            color: var(--dark-gray);
+        }
+
+        .map-link {
+            color: var(--dark-gray);
+            text-decoration: none;
+        }
+
+        .map-link:hover {
+            text-decoration: underline;
+        }
+
+        .phone-link {
+            color: var(--dark-gray);
+            text-decoration: none;
+        }
+
+        .phone-link:hover {
+            text-decoration: underline;
+        }
+
+        .budget-chart {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .budget-chart h2 {
+            color: var(--deep-green);
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .budget-chart canvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="index.html">Minto</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="budget.html">Budget</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Budget Section -->
+    <section class="budget-section">
+        <div class="container">
+            <h2>Budget Management</h2>
+            <p>Effortlessly manage your budget with Minto. Track your income and expenses, set goals, and stay on top of your financial health.</p>
+
+            <!-- Budget Summary -->
+            <div class="budget-summary">
+                <h3>Budget Summary</h3>
+                <div class="summary-item">
+                    <label>Total Income:</label>
+                    <span>Rs. 50,000</span>
+                </div>
+                <div class="summary-item">
+                    <label>Total Expenses:</label>
+                    <span>Rs. 30,000</span>
+                </div>
+                <div class="summary-item">
+                    <label>Net Savings:</label>
+                    <span>Rs. 20,000</span>
+                </div>
+            </div>
+
+            <!-- Budget Table -->
+            <div class="budget-table">
+                <h2>Transaction History</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Amount (Rs.)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Example Transactions -->
+                        <tr class="income-row">
+                            <td>2023-10-01</td>
+                            <td>10:00 AM</td>
+                            <td>Income</td>
+                            <td>Salary</td>
+                            <td>Monthly Salary</td>
+                            <td>30,000</td>
+                            <td>
+                                <a href="#" class="update-btn" style="text-decoration: none;">Update</a>
+                                <form method="POST" action="#" style="display:inline;">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <tr class="expense-row">
+                            <td>2023-10-02</td>
+                            <td>09:30 AM</td>
+                            <td>Expense</td>
+                            <td>Groceries</td>
+                            <td>Grocery Shopping</td>
+                            <td>2,000</td>
+                            <td>
+                                <a href="#" class="update-btn" style="text-decoration: none;">Update</a>
+                                <form method="POST" action="#" style="display:inline;">
+                                    <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <!-- Add more transactions as needed -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Budget Form -->
+            <div class="budget-form">
+                <h2>Add New Transaction</h2>
+                <form method="POST">
+                    <div class="form-group mb-3">
+                        <label for="date">Date:</label>
+                        <input type="date" class="form-control" id="date" name="date" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="time">Time:</label>
+                        <input type="time" class="form-control" id="time" name="time" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="type">Transaction Type:</label>
+                        <select class="form-control" id="type" name="type" required>
+                            <option value="income">Income</option>
+                            <option value="expense">Expense</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="category">Category:</label>
+                        <select class="form-control" id="category" name="category" required>
+                            <option value="salary" data-type="income">Salary</option>
+                            <option value="bonus" data-type="income">Bonus</option>
+                            <option value="rent" data-type="expense">Rent</option>
+                            <option value="groceries" data-type="expense">Groceries</option>
+                            <option value="transport" data-type="expense">Transport</option>
+                            <option value="shopping" data-type="expense">Shopping</option>
+                            <option value="entertainment" data-type="expense">Entertainment</option>
+                        </select>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="description">Description:</label>
+                        <input type="text" class="form-control" id="description" name="description" placeholder="e.g., Grocery Shopping" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="amount">Amount (Rs.):</label>
+                        <input type="number" class="form-control" id="amount" name="amount" placeholder="e.g., 2000" min="0" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Transaction</button>
+                </form>
+            </div>
+
+            <!-- Budget Chart -->
+            <div class="budget-chart">
+                <h2>Budget Overview</h2>
+                <canvas id="budgetChart"></canvas>
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box">
+                <p>"Effective budgeting is about making choices that align with your values and goals. Let Minto help you stay on track."</p>
+                <small>- Jane Smith, CTO & Co-Founder</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-icons">
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <p>© 2025 Minto. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Set default date and time
+        document.addEventListener("DOMContentLoaded", function() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const formattedDate = `${year}-${month}-${day}`;
+
+            const hours = String(today.getHours()).padStart(2, '0');
+            const minutes = String(today.getMinutes()).padStart(2, '0');
+            const formattedTime = `${hours}:${minutes}`;
+
+            document.getElementById('date').value = formattedDate;
+            document.getElementById('time').value = formattedTime;
+
+            // Filter categories based on transaction type
+            const typeSelect = document.getElementById('type');
+            const categorySelect = document.getElementById('category');
+
+            typeSelect.addEventListener('change', function() {
+                const selectedType = typeSelect.value;
+                categorySelect.innerHTML = ''; // Clear existing options
+
+                const options = [
+                    { value: 'salary', type: 'income', label: 'Salary' },
+                    { value: 'bonus', type: 'income', label: 'Bonus' },
+                    { value: 'rent', type: 'expense', label: 'Rent' },
+                    { value: 'groceries', type: 'expense', label: 'Groceries' },
+                    { value: 'transport', type: 'expense', label: 'Transport' },
+                    { value: 'shopping', type: 'expense', label: 'Shopping' },
+                    { value: 'entertainment', type: 'expense', label: 'Entertainment' }
+                ];
+
+                options.forEach(option => {
+                    if (option.type === selectedType) {
+                        const opt = document.createElement('option');
+                        opt.value = option.value;
+                        opt.textContent = option.label;
+                        categorySelect.appendChild(opt);
+                    }
+                });
+            });
+
+            // Trigger initial filter
+            typeSelect.dispatchEvent(new Event('change'));
+
+            // Initialize Chart.js
+            const ctx = document.getElementById('budgetChart').getContext('2d');
+            const budgetChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                    datasets: [{
+                        label: 'Income',
+                        data: [12000, 15000, 14000, 16000, 18000, 17000, 19000],
+                        backgroundColor: 'rgba(72, 112, 90, 0.5)',
+                        borderColor: 'rgba(72, 112, 90, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Expenses',
+                        data: [8000, 10000, 9000, 11000, 12000, 13000, 14000],
+                        backgroundColor: 'rgba(255, 77, 77, 0.5)',
+                        borderColor: 'rgba(255, 77, 77, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
