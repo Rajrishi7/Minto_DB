@@ -165,6 +165,62 @@
 </nav>
 
 
+<!-- Navigation Buttons -->
+<section class="py-4">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3 col-6">
+                <a href="income.php" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-wallet-fill text-success mb-2 fs-3"></i>
+                    <h5>Income Tracker</h5>
+                </a>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="expenses.php" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-cash-stack text-danger mb-2 fs-3"></i>
+                    <h5>Expense Tracker</h5>
+                </a>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="budget.html" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-pie-chart-fill text-primary mb-2 fs-3"></i>
+                    <h5>Budget</h5>
+                </a>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="transaction-history.php" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-clock-history text-info mb-2 fs-3"></i>
+                    <h5>Transactions</h5>
+                </a>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="learn.php" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-book-fill text-warning mb-2 fs-3"></i>
+                    <h5>Learn</h5>
+                </a>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="profile.html" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-person-circle text-secondary mb-2 fs-3"></i>
+                    <h5>Profile</h5>
+                </a>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="settings.html" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-gear-fill text-dark mb-2 fs-3"></i>
+                    <h5>Settings</h5>
+                </a>
+            </div>
+            <div class="col-md-3 col-6">
+                <a href="contact.html" class="btn btn-light w-100 p-4 shadow-sm rounded-4">
+                    <i class="bi bi-envelope-fill text-success mb-2 fs-3"></i>
+                    <h5>Contact</h5>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- Quote Section -->
 <section class="py-4">
     <div class="container">
